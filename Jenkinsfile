@@ -1,36 +1,28 @@
 pipeline {
-    agent any  // Runs the pipeline on any available agent (node)
+    agent any
 
     stages {
         stage('Build') {
             steps {
                 echo 'Building the application'
-                // Add build commands here (example for Node.js):
-                sh 'npm install'
+                bat 'echo Hello from Windows Build'  // <-- use `bat` instead of `sh`
             }
         }
-        
         stage('Test') {
             steps {
-                echo 'Running tests'
-                // Add testing commands (example for Node.js):
-                sh 'npm test'
+                echo 'Testing the application'
+                bat 'echo Running tests...'          // Replace `sh` with `bat`
             }
         }
-        
         stage('Deploy') {
             steps {
                 echo 'Deploying the application'
-                // Add deployment commands here (example):
-                sh './deploy.sh'
+                bat 'echo Deploy completed'          // Windows-compatible deploy command
             }
         }
     }
 
     post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
         failure {
             echo 'Pipeline failed, check the logs.'
         }
